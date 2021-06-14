@@ -1,6 +1,6 @@
 use gio::prelude::*;
 use gtk::prelude::*;
-use gtk::{Application, ApplicationWindow};
+use gtk::{Application, ApplicationWindow, Box, Image, Label, Orientation};
 use std::env;
 
 fn main()
@@ -20,6 +20,14 @@ fn main()
             //gtk::main_quit(); -- thread 'main' panicked at 'Attempted to quit a GTK main loop when none is running.'
             Inhibit(false) // Don't prevent the default behavior (i.e. close)
         });
+        let layout_box = Box::new(Orientation::Vertical, 0);
+        //
+        let label = Label::new(Some("Meow!\n  \\\n    \\"));
+        layout_box.add(&label);
+        let cat_image = Image::from_file("./images/cat.png"); // new_from_file("./images/cat.png"); -- function or associated item not found in `Image`
+        layout_box.add(&cat_image);
+        //
+        window.add(&layout_box);
         window.show_all();
     });
     app.connect_activate(|_| {});
